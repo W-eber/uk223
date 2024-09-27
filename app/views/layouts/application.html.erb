@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= content_for(:title) || "Schulden App" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= yield :head %>
+
+    <!-- Import Google Font Roboto -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <!-- Include custom CSS and default styles -->
+    <%= stylesheet_link_tag "application", "custom", "data-turbo-track": "reload" %>
+    <%= javascript_include_tag "rails-ujs", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body>
+    <!-- Flash Messages -->
+    <div id="flash-messages">
+      <% if flash[:notice] %>
+        <div class="flash notice"><%= flash[:notice] %></div>
+      <% elsif flash[:alert] %>
+        <div class="flash alert"><%= flash[:alert] %></div>
+      <% end %>
+    </div>
+
+    <!-- Navbar with logged-in user information -->
+    <% if logged_in? %>
+      <header class="navbar">
+        <div class="navbar-left">
+          <%= link_to 'Home', groups_path, class: "btn btn-home" %>
+        </div>
+        <div class="navbar-right">
+          <span>Eingeloggt als: <%= link_to current_user.username, edit_user_path(current_user), class: "user-link" %></span>
+          <span> | <%= link_to 'Audit Logs', audits_path, class: "user-link" %> </span>
+          <span> | <%= link_to 'Logout', logout_path, method: :delete, class: "user-link" %></span>
+        </div>
+      </header>
+    <% end %>
+
+    <%= yield %>
+
+    <!-- Auto-hide flash messages after 3 seconds -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(function() {
+          const flashMessages = document.getElementById('flash-messages');
+          if (flashMessages) {
+            flashMessages.style.display = 'none';
+          }
+        }, 3000);
+      });
+    </script>
+  </body>
+</html>

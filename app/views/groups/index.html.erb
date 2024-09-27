@@ -1,0 +1,25 @@
+<div class="container">
+  <h1>Your Groups</h1>
+  
+  <div class="group-buttons">
+    <%= link_to "Create New Group", new_group_path, class: "btn btn-primary" %>
+  </div>
+
+  <ul class="groups-list">
+    <% @groups.each do |group| %>
+      <li><%= link_to group.group_name, group_path(group) %></li>
+    <% end %>
+  </ul>
+
+  <h2>Join a Group</h2>
+  <div class="join-group-section">
+    <%= form_with(url: join_group_path, method: :post, local: true) do %>
+      <div class="form-group">
+        <%= label_tag :group_code, "Enter Group Code" %>
+        <%= text_field_tag :group_code, nil, class: 'form-control' %>
+      </div>
+      <%= submit_tag "Join Group", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+
+</div>

@@ -1,0 +1,28 @@
+<div class="container">
+  <h1>Add a New Debt</h1>
+
+  <%= form_with model: [@group, @debt], local: true, class: "add-debt-form" do |form| %>
+    <div class="form-group">
+      <%= form.label :payee_id, "I owe:" %>
+      <%= form.collection_select :payee_id, @users, :id, :username, {}, { class: "form-control" } %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :amount, "Amount (€)" %>
+      <%= form.number_field :amount, step: 0.01, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :description, "Description" %>
+      <%= form.text_area :description, class: "form-control" %>
+    </div>
+
+    <!-- Remove the checkbox for 'is_paid' -->
+
+    <!-- Adjust the button layout here -->
+    <div class="button-group">
+      <%= form.submit "Add Debt", class: "btn btn-primary" %>
+      <%= link_to "Back to Group", group_path(@group), class: "btn btn-secondary" %>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,16 @@
+<div class="container">
+  <h1>Create a New Group</h1>
+
+  <%= form_with(model: @group, local: true) do |form| %>
+    <div class="form-group">
+      <%= form.label :group_name, "Group Name" %>
+      <%= form.text_field :group_name, required: true, class: "form-control" %>
+    </div>
+
+    <!-- Adjust the button layout here -->
+    <div class="button-group">
+      <%= form.submit "Create Group", class: "btn btn-primary" %>
+      <%= link_to "Back to Groups", groups_path, class: "btn btn-secondary" %>
+    </div>
+  <% end %>
+</div>

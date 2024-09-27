@@ -1,0 +1,556 @@
+/* General styling for clean UI */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f4f7f6;
+    color: #333;
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+}
+
+/* Container styling for form and profile */
+.auth-container, .profile-container, .container {
+    max-width: 700px;
+    margin: 20px auto;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Headings */
+h1, h2 {
+    color: #2b6777;
+    margin-bottom: 20px;
+    font-weight: 500;
+    text-align: left;
+}
+
+p {
+    color: #666;
+    margin-bottom: 20px;
+}
+
+/* List Styling */
+ul {
+    padding: 0;
+}
+
+li {
+    list-style-type: none;
+    background-color: #eaf4f2;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Group Button */
+.group-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.btn {
+    padding: 12px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+
+.btn-primary {
+    background-color: #52ab98;
+    color: #fff;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #428a7b;
+}
+
+.btn-secondary {
+    background-color: #ddd;
+    color: #333;
+}
+
+.btn-secondary:hover {
+    background-color: #ccc;
+}
+
+.btn-danger {
+    background-color: #e74c3c;
+    color: #fff;
+}
+
+.btn-danger:hover {
+    background-color: #d62c1a;
+}
+
+/* Spacing adjustment for buttons */
+.button-group {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px; /* Adds a gap between the buttons */
+    margin-top: 20px;
+}
+
+/* Join Group Form */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group input, .form-group textarea, .form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* Align Buttons in Join Group Section */
+.join-group-section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.join-group-section .btn {
+    margin-top: 10px;
+    width: auto;
+}
+
+/* Logout button */
+button.logout {
+    display: block;
+    margin-top: 20px;
+    padding: 12px 20px;
+    background-color: #e74c3c;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button.logout:hover {
+    background-color: #d62c1a;
+}
+
+/* Clean responsive layout */
+@media (max-width: 600px) {
+    body {
+        padding: 10px;
+    }
+
+    .container, .auth-container, .profile-container {
+        padding: 20px;
+    }
+
+    .btn, .form-control {
+        width: 100%;
+    }
+
+    .group-buttons {
+        flex-direction: column;
+    }
+}
+
+/* Debt listings */
+.debts-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.debts-list li {
+    background-color: #eaf4f2;
+    padding: 10px;
+    margin-bottom: 8px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.paid {
+    color: #4CAF50;
+    font-weight: bold;
+}
+
+.unpaid {
+    color: #e74c3c;
+    font-weight: bold;
+}
+
+/* Flash messages */
+.success-message {
+    color: #4CAF50;
+    margin-bottom: 20px;
+}
+
+.error-message {
+    color: #e74c3c;
+    margin-bottom: 20px;
+}
+
+/* Link styling */
+a {
+    color: #2b6777;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Form layout adjustments */
+.add-debt-form .form-group {
+    margin-bottom: 20px;
+}
+
+/* Flash messages */
+#flash-messages {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+}
+
+.flash {
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    font-size: 16px;
+    text-align: center;
+    width: 300px;
+}
+
+.flash.notice {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.flash.alert {
+    background-color: #f44336;
+    color: white;
+}
+
+/* Styling for debt overview */
+ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .profile-container ul li {
+    background-color: #eaf4f2;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .unpaid {
+    color: #e74c3c;
+    font-weight: bold;
+  }
+  
+  .paid {
+    color: #4CAF50;
+    font-weight: bold;
+  }
+  
+  /* Stats section styling */
+  .profile-container h2 {
+    margin-top: 20px;
+  }
+  
+  .profile-container ul {
+    padding-left: 0;
+  }
+  
+  .profile-container ul li {
+    display: flex;
+    justify-content: space-between;
+  }
+
+/* Smaller buttons for kick and dropdown */
+.kick-button {
+    padding: 5px 10px;
+    font-size: 14px;
+}
+
+.role-select {
+    padding: 5px 10px;
+    font-size: 14px;
+    width: 120px;
+}
+
+/* Adjustments for the role dropdown and buttons */
+.role-change-form {
+    display: inline;
+    margin-right: 10px;
+}
+
+.btn-sm {
+    padding: 5px 10px;
+    font-size: 14px;
+}
+
+/* Additional styling for better alignment */
+li {
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #eaf4f2;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+li div {
+    display: flex;
+    flex-direction: column;
+}
+
+.user-link {
+    font-weight: bold;
+}
+
+/* Role dropdown styling */
+.role-select-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  
+  .role-select {
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+  }
+  
+  /* Button Styling */
+  .save-role-btn, .btn-kick {
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-size: 14px;
+  }
+  
+  .save-role-btn {
+    background-color: #52ab98;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .save-role-btn:hover {
+    background-color: #428a7b;
+  }
+  
+  .btn-kick {
+    background-color: #e74c3c;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .btn-kick:hover {
+    background-color: #d62c1a;
+  }
+  
+
+  /* Styling for role and action buttons */
+.role-actions {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.role-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.role-form-group .btn {
+    margin-top: 5px;
+}
+
+.btn-primary, .btn-secondary, .btn-danger {
+    padding: 10px 20px;
+    font-size: 14px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary {
+    background-color: #52ab98;
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background-color: #428a7b;
+}
+
+.btn-secondary {
+    background-color: #ddd;
+    color: #333;
+}
+
+.btn-secondary:hover {
+    background-color: #ccc;
+}
+
+.btn-danger {
+    background-color: #e74c3c;
+    color: #fff;
+}
+
+.btn-danger:hover {
+    background-color: #d62c1a;
+}
+
+/* Flash messages styling */
+.flash {
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.flash.notice {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.flash.alert {
+    background-color: #f44336;
+    color: white;
+}
+
+.role-actions {
+    display: flex;
+    justify-content: flex-end; /* Aligns the buttons to the right */
+    gap: 10px;
+  }
+  
+  .btn-kick {
+    background-color: #e74c3c;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    padding: 5px 10px; /* Smaller padding */
+    width: auto; /* Ensures the button doesn't stretch */
+    align-self: flex-end; /* Aligns the button to the right */
+  }
+  
+  .btn-kick:hover {
+    background-color: #d62c1a;
+  }
+  
+  .audit-logs-container {
+    margin: 20px auto;
+    width: 90%;
+    max-width: 1200px;
+  }
+  
+  .audit-logs-container h1 {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    text-align: center;
+    color: #2c3e50;
+  }
+  
+  .audit-logs-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'Roboto', sans-serif;
+  }
+  
+  .audit-logs-table th,
+  .audit-logs-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .audit-logs-table th {
+    background-color: #f4f6f8;
+    font-weight: bold;
+    color: #34495e;
+  }
+  
+  .audit-logs-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .audit-logs-table tr:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .audit-logs-table td {
+    font-size: 14px;
+    color: #2c3e50;
+  }
+  
+  .audit-logs-table .audit-change {
+    background-color: #e8f7fc;
+    padding: 5px;
+    margin-bottom: 4px;
+    border-radius: 4px;
+  }
+  
+  .audit-logs-table .audit-change strong {
+    color: #2980b9;
+  }
+  
+  .audit-logs-table .audit-change:last-child {
+    margin-bottom: 0;
+  }
+  
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    background-color: #2c3e50;
+    padding: 10px 20px;
+    color: white;
+  }
+  
+  .navbar .navbar-left,
+  .navbar .navbar-right {
+    display: flex;
+    align-items: center;
+  }
+  
+  .navbar .navbar-left .btn-home {
+    color: white;
+    text-decoration: none;
+    background-color: #3498db;
+    padding: 8px 12px;
+    border-radius: 4px;
+  }
+  
+  .navbar .navbar-right .user-link {
+    color: white;
+    text-decoration: none;
+    margin-left: 15px;
+  }
+  
+  .navbar .navbar-right .user-link:hover {
+    text-decoration: underline;
+  }
+  

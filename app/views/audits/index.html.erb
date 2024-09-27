@@ -1,0 +1,32 @@
+<div class="audit-logs-container">
+  <h1>Audit Logs</h1>
+  
+  <table class="audit-logs-table">
+    <thead>
+      <tr>
+        <th>Action</th>
+        <th>Audited Item</th>
+        <th>Changes</th>
+        <th>User</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @audits.each do |audit| %>
+        <tr>
+          <td><%= audit.action.capitalize %></td>
+          <td><%= audit.auditable_type %> (ID: <%= audit.auditable_id %>)</td>
+          <td>
+            <% audit.audited_changes.each do |key, value| %>
+              <div class="audit-change">
+                <strong><%= key %>:</strong> <%= value.is_a?(Array) ? "#{value.first} → #{value.last}" : value %>
+              </div>
+            <% end %>
+          </td>
+          <td><%= audit.user.try(:username) || 'Unknown' %></td>
+          <td><%= audit.created_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

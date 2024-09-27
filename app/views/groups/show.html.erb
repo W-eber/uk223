@@ -1,0 +1,102 @@
+<div class="container">
+  <h1><%= @group.group_name %></h1>
+
+  <p>Group Code: <%= @group.group_code %></p>
+
+  <h2>Group Members</h2>
+  <ul>
+    <% @group_members_with_debts.each do |member_info| %>
+      <li style="display: flex; justify-content: space-between; align-items: center;">
+        <!-- Clickable username to profile -->
+        <div>
+          <%= link_to member_info[:user].username, user_path(member_info[:user]), class: 'user-link' %> 
+          <br>
+          Role: <%= member_info[:role].capitalize %> 
+          <br>
+          Debt in this group: €<%= member_info[:total_debt] %>
+        </div>
+
+        <!-- Admin Actions for Changing Role and Kicking User -->
+        <div class="role-actions">
+          <!-- Only Admins can change roles -->
+          <% if current_user.group_users.find_by(group: @group).admin? && member_info[:user] != current_user %>
+            <%= form_with url: update_user_role_group_path(@group, user_id: member_info[:user].id), method: :patch, local: true, class: 'role-change-form' do |form| %>
+              <div class="role-form-group">
+                <%= form.select :role, options_for_select([['Member', 'member'], ['Moderator', 'moderator']], selected: member_info[:role]), {}, class: "btn btn-secondary dropdown" %>
+                <%= form.submit "Save Role", class: "btn btn-primary" %>
+              </div>
+            <% end %>
+          <% end %>
+
+          <!-- Kick Button (Moderators can only kick Members, Admins can kick anyone) -->
+          <% if (current_user.group_users.find_by(group: @group).admin? || 
+                (current_user.group_users.find_by(group: @group).moderator? && member_info[:role] == 'member')) && 
+                member_info[:user] != current_user %>
+            <%= link_to 'Kick', kick_user_group_path(@group, user_id: member_info[:user].id), method: :delete, class: "btn btn-kick" %>
+          <% end %>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+
+  <h2>Debts in this Group</h2>
+  <ul class="debts-list">
+    <% @group.debts.each do |debt| %>
+      <li>
+        <%= debt.payer.username %> owes <%= debt.payee.username %> €<%= debt.amount %> for <%= debt.description %>.
+        <span class="<%= debt.is_paid ? 'paid' : 'unpaid' %>">
+          <% if debt.is_paid %>
+            Paid
+          <% else %>
+            <%= link_to "Unpaid", "#", class: "mark-as-paid", data: { debt_id: debt.id } %>
+          <% end %>
+        </span>
+      </li>
+    <% end %>
+  </ul>
+
+  <!-- Button Group: Add Debt, Delete Group, Back to Groups -->
+  <div class="button-group">
+    <%= link_to "Add Debt", new_group_debt_path(@group), class: "btn btn-primary" %>
+    <%= link_to "Back to Groups", groups_path, class: "btn btn-secondary" %>
+    <% if current_user.group_users.find_by(group: @group).admin? %>
+      <%= link_to "Delete Group", group_path(@group), method: :delete, data: { turbo_confirm: "Are you sure you want to delete this group?" }, class: "btn btn-danger" %>
+    <% end %>
+  </div>
+</div>
+
+
+
+<!-- JavaScript to handle marking debt as paid (only included on group pages) -->
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    document.querySelectorAll(".mark-as-paid").forEach(function(button) {
+      button.addEventListener("click", function(event) {
+        event.preventDefault();
+        if (confirm('Mark this debt as paid?')) {
+          const debtId = this.getAttribute('data-debt-id');
+          const groupId = "<%= @group.id %>";
+
+          fetch(`/groups/${groupId}/debts/${debtId}`, {
+            method: 'PATCH',
+            headers: {
+              'Content-Type': 'application/json',
+              'X-CSRF-Token': '<%= form_authenticity_token %>'
+            },
+            body: JSON.stringify({ mark_as_paid: true })
+          })
+          .then(response => {
+            if (response.ok) {
+              window.location.href = `/groups/${groupId}`;
+            } else {
+              alert('Failed to mark debt as paid.');
+            }
+          })
+          .catch(error => {
+            alert('Error:', error);
+          });
+        }
+      });
+    });
+  });
+</script>

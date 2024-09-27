@@ -1,0 +1,54 @@
+<div class="profile-container">
+  <h1><%= @user.username %>'s Profile</h1>
+
+  <p>Email: <%= @user.email %></p>
+
+  <!-- Display user debt overview -->
+  <h2>Debt Overview:</h2>
+  <ul>
+    <li>Total Debt: €<%= @total_debt %></li>
+    <li>Paid Debts: <%= @total_paid_debts %></li>
+    <li>Open Debts: <%= @open_debts %></li>
+  </ul>
+
+  <!-- Display debts this user owes -->
+  <h2>Debts this user owes:</h2>
+  <ul>
+    <% @unpaid_debts_as_payer.each do |debt| %>
+      <li>
+        Owes <%= debt.payee.username %> €<%= debt.amount %> for <%= debt.description %>.
+        <span class="unpaid">Unpaid</span>
+      </li>
+    <% end %>
+
+    <% @paid_debts_as_payer.each do |debt| %>
+      <li>
+        Owes <%= debt.payee.username %> €<%= debt.amount %> for <%= debt.description %>.
+        <span class="paid">Paid</span>
+      </li>
+    <% end %>
+  </ul>
+
+  <!-- Display debts owed to this user -->
+  <h2>Debts owed to this user:</h2>
+  <ul>
+    <% @unpaid_debts_as_payee.each do |debt| %>
+      <li>
+        <%= debt.payer.username %> owes €<%= debt.amount %> for <%= debt.description %>.
+        <span class="unpaid">Unpaid</span>
+      </li>
+    <% end %>
+
+    <% @paid_debts_as_payee.each do |debt| %>
+      <li>
+        <%= debt.payer.username %> owes €<%= debt.amount %> for <%= debt.description %>.
+        <span class="paid">Paid</span>
+      </li>
+    <% end %>
+  </ul>
+
+  <!-- Back to Groups Button -->
+  <div class="button-group">
+    <%= link_to "Back to Groups", groups_path, class: "btn btn-secondary" %>
+  </div>
+</div>
